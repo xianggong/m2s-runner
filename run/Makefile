@@ -26,7 +26,7 @@ run: condor
 analyze:
 	echo 'name,cycle,passed' > result.csv
 	ls -v *.err | xargs grep 'Cycles =' | sed -n 'n;p;' | sed 's/\./ /g' | awk '{print $$1","$$NF}' 2>&1 > cycles
-	ls -v *.out | xargs egrep -c 'Passed' | sed 's/:/ /g' | awk '{print $$NF}'> verification
+	ls -v *.out | xargs grep 'Passed' | sed 's/:/ /g' | awk '{print $$NF}'> verification
 	paste -d ',' cycles verification >> result.csv
 
 clean:
