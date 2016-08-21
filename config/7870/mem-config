@@ -224,32 +224,32 @@ LowModules = l2-0 l2-1 l2-2 l2-3 l2-4
 [ Network net-l1-all-to-l2-all ]
 DefaultInputBufferSize = 528
 DefaultOutputBufferSize = 528
-DefaultBandwidth = 264
+DefaultBandwidth = 153.6
 
 [ Network net-l2-0-to-mm-0 ]
 DefaultInputBufferSize = 528
 DefaultOutputBufferSize = 528
-DefaultBandwidth = 264
+DefaultBandwidth = 153.6
 
 [ Network net-l2-1-to-mm-1 ]
 DefaultInputBufferSize = 528
 DefaultOutputBufferSize = 528
-DefaultBandwidth = 264
+DefaultBandwidth = 153.6
 
 [ Network net-l2-2-to-mm-2 ]
 DefaultInputBufferSize = 528
 DefaultOutputBufferSize = 528
-DefaultBandwidth = 264
+DefaultBandwidth = 153.6
 
 [ Network net-l2-3-to-mm-3 ]
 DefaultInputBufferSize = 528
 DefaultOutputBufferSize = 528
-DefaultBandwidth = 264
+DefaultBandwidth = 153.6
 
 [ Network net-l2-4-to-mm-4 ]
 DefaultInputBufferSize = 528
 DefaultOutputBufferSize = 528
-DefaultBandwidth = 264
+DefaultBandwidth = 153.6
 
 
 ; ---- Associating CUs with L1s ----

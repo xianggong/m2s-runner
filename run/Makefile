@@ -16,7 +16,7 @@ gen:
 	if [ -e si-config ] && [ -e mem-config ]; then paste -d " " si-config mem-config > configs; fi;
 	if [ -e si-config ] && [ -e mem-config ]; then rm -f si-config mem-config; fi;
 
-condor: gen
+condor:
 	if [ -e benchmark.ini ] && [ -e configs ]; then echo "Executable = $(M2S)" > submit; fi;
 	if [ -e benchmark.ini ] && [ -e configs ]; then python gencondor.py benchmark.ini configs 2>&1 >> submit; fi;
 
@@ -24,10 +24,16 @@ run: condor
 	condor_submit submit
 
 analyze:
-	echo 'name,cycle,passed' > result.csv
-	ls -v *.err | xargs grep 'Cycles =' | sed -n 'n;p;' | sed 's/\./ /g' | awk '{print $$1","$$NF}' 2>&1 > cycles
-	ls -v *.out | xargs grep 'Passed' | sed 's/:/ /g' | awk '{print $$NF}'> verification
-	paste -d ',' cycles verification >> result.csv
+	echo 'gpu,bench,mode,sched0,sched1,size,ratio,cycle' > cycles
+	ls -v *.err | xargs grep 'Cycles =' | sed -n 'n;p;' | sed 's/\./ /g' | awk '{print $$1","$$NF}' 2>&1 >> cycles
+	sed -i 's/Kernels/orig,-/g' cycles
+	sed -i 's/\_/,/g' cycles
+
+cleanconfig:
+	rm -f mem-config si-config configs benchmark.ini submit cycles verification
 
 clean:
-	rm -f mem-config si-config configs benchmark.ini submit cycles verification *.out *.log *.err *.csv
+	rm -f *.out 
+	rm -f *.log 
+	rm -f *.err 
+	rm -f *.csv

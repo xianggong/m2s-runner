@@ -37,13 +37,27 @@ def main():
 		output = conf + "_" + name
 		if len:
 			output += "_" + len.group(1)
-		src = config.replace("\n"," ") + line.replace("\n", " ")
-		#src = src.replace("\n"," ") + redirect + output
-		print "Arguments = --si-sim detailed " + src
-		print "Error = " + output + ".err"
-		print "Output = " + output + ".out"
-		print "Log = " + output + ".log"
-		print "Queue\n"
+		if "fuse" in name:
+			ratio = 0.0
+			org_output = output
+			for i in xrange(0, 11, 1):
+				ratio = i / 10.0
+				new_output = org_output + "_" + str(i)
+				src = config.replace("\n"," ") + line.replace("\n", " ")
+				print "Arguments = --si-sim detailed " + src
+				print "Environment = M2S_MSHR_FIX=1; M2S_MIX_PATTERN=0; M2S_MIX_RATIO=" + str(ratio)
+				print "Error = " + conf + "/" + new_output + ".err"
+				print "Output = " + conf + "/" + new_output + ".out"
+				print "Queue\n"
+		else:
+			output += "_10"
+			src = config.replace("\n"," ") + line.replace("\n", " ")
+			print "Arguments = --si-sim detailed " + src
+			print "Environment = M2S_MSHR_FIX=1"
+			print "Error = " + conf + "/" + output + ".err"
+			print "Output = " + conf + "/" + output + ".out"
+			print "Queue\n"
+		
 
 if __name__ == '__main__':
     main()
